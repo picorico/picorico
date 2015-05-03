@@ -22,7 +22,7 @@ srv.on("message", function (msg, rinfo) {
   var date = new Date();
   if (offset % 10000 == 0)
     offset = 0;
-  data[offset] = { 'timestamp': date.getTime(), value: parseInt(msg) };
+  data[offset] = { 'time': date.getTime() / 1000, 'y': parseInt(msg) };
   offset++;
 });
 
@@ -63,7 +63,7 @@ app.post('/send', function (req, res) {
   var date = new Date();
   if (offset_acc % 10000 == 0)
     offset_acc = 0;
-  data_acc[offset_acc] = { 'timestamp': date.getTime(), value: content };
+  data_acc[offset_acc] = { 'time': date.getTime() / 1000, 'value': content };
   offset_acc++;
   res.send();
 });

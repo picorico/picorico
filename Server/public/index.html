@@ -5,52 +5,97 @@
     <script src="jquery.min.js"></script>
     <script src="d3.min.js"></script>
     <script src="epoch.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="epoch.min.css">
   </head>
   <body>
-    <div id="gaugeX" class="epoch gauge-small"></div>
-    <div id="gaugeY" class="epoch gauge-small"></div>
-    <div id="gaugeZ" class="epoch gauge-small"></div>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img alt="PicoRico">
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class='container'>
+      <div class='row'>
+        <div class='col-md-3 col-md-offset-2'>
+          <div id="gaugeX" class="epoch gauge-small"></div>
+        </div>
+        <div class='col-md-3'>
+          <div id="gaugeY" class="epoch gauge-small"></div>
+        </div>
+        <div class='col-md-3'>
+          <div id="gaugeZ" class="epoch gauge-small"></div>
+        </div>
+      </div>
+    </br>
+    </br>
+    </br>
+    </br>
+      <div class='row'>
+        <div class='col-md-3 col-md-offset-2'>
+          <div id="lineChart" style="width: 800px; height: 200px"></div>
+        </div>
+      </div>
+    </div>
 
     <script>
       function format(v) {
-        return v;
+        return Math.round(v);
       }
 
       function updateGauges() {
         $.get('/data', function(data) {
-          if (!data || !data.acc) {
+          if (!data || !data.acc || !data.pot) {
             return;
           }
-          var v = data.acc[data.acc.length - 1];
-          gaugeX.push(v.value.x);
-          gaugeY.push(v.value.y);
-          gaugeZ.push(v.value.z);
+          if (data.acc.length) {
+            gaugeX.push(data.acc.value.x);
+            gaugeY.push(data.acc.value.y);
+            gaugeZ.push(data.acc.value.z);
+          }
+
+          if (data.pot.length) {
+            for (var i = 0; i < data.pot.length; ++i) {
+              graph.push([{time: data.pot[i].time / 1000, y: data.pot[i].y}]);
+            }
+          }
         })
       }
 
       var gaugeX = $('#gaugeX').epoch({
         type: 'time.gauge',
-        domain: [-90, 90],
+        domain: [-180, 180],
         value: 0,
         format: format
       });
 
       var gaugeY = $('#gaugeY').epoch({
         type: 'time.gauge',
-        domain: [-90, 90],
+        domain: [-180, 180],
         value: 0,
         format: format
       });
 
       var gaugeZ = $('#gaugeZ').epoch({
         type: 'time.gauge',
-        domain: [-90, 90],
+        domain: [-180, 180],
         value: 0,
         format: format
       });
 
-      setInterval(updateGauges, 500);
+      var graph = $('#lineChart').epoch({
+        type: 'time.line',
+        axes: ['bottom', 'left'],
+        data: [{label: 'Value ', values: [{time: Date.now() / 1000, y: 0}]}]
+      });
+
+      setInterval(updateGauges, 1000);
     </script>
   </body>
 </html>
