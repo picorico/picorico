@@ -55,14 +55,15 @@
             return;
           }
           if (data.acc.length) {
-            gaugeX.push(data.acc.value.x);
-            gaugeY.push(data.acc.value.y);
-            gaugeZ.push(data.acc.value.z);
+            var value = data.acc[data.acc.length - 1].value;
+            gaugeX.push(value.x);
+            gaugeY.push(value.y);
+            gaugeZ.push(value.z);
           }
 
           if (data.pot.length) {
             for (var i = 0; i < data.pot.length; ++i) {
-              graph.push([{time: data.pot[i].time / 1000, y: data.pot[i].y}]);
+              graph.push([{time: data.pot[i].time, y: data.pot[i].y}]);
             }
           }
         })
