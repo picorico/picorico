@@ -7,12 +7,12 @@ app.use (bodyParser.json ());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // potentiometer
-var data = [10000];
+var data = [];
 var offset = 0;
 var consumer = 0;
 
 // accelerometer
-var data_acc = [10000];
+var data_acc = [];
 var offset_acc = 0;
 var consumer_acc = 0;
 

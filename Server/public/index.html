@@ -8,15 +8,49 @@
     <link rel="stylesheet" type="text/css" href="epoch.min.css">
   </head>
   <body>
-    <div id="gaugeChart" class="epoch gauge-small"></div>
+    <div id="gaugeX" class="epoch gauge-small"></div>
+    <div id="gaugeY" class="epoch gauge-small"></div>
+    <div id="gaugeZ" class="epoch gauge-small"></div>
+
     <script>
-      var gauge = $('#gaugeChart').epoch({
+      function format(v) {
+        return v;
+      }
+
+      function updateGauges() {
+        $.get('/data', function(data) {
+          if (!data || !data.acc) {
+            return;
+          }
+          var v = data.acc[data.acc.length - 1];
+          gaugeX.push(v.value.x);
+          gaugeY.push(v.value.y);
+          gaugeZ.push(v.value.z);
+        })
+      }
+
+      var gaugeX = $('#gaugeX').epoch({
         type: 'time.gauge',
-        value: 0.5
+        domain: [-90, 90],
+        value: 0,
+        format: format
       });
 
-      setInterval(function(){ gauge.push(Math.random()); }, 500);
+      var gaugeY = $('#gaugeY').epoch({
+        type: 'time.gauge',
+        domain: [-90, 90],
+        value: 0,
+        format: format
+      });
 
+      var gaugeZ = $('#gaugeZ').epoch({
+        type: 'time.gauge',
+        domain: [-90, 90],
+        value: 0,
+        format: format
+      });
+
+      setInterval(updateGauges, 500);
     </script>
   </body>
 </html>
