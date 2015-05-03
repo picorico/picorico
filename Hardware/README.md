@@ -6,11 +6,12 @@ The AMT203 is a high accuracy absolute encoder outputting 12 bits of absolute
 position information.
 
 Here the pinout to connect the AMT203 to the arduino mini pro
-
+```
                   | |
                   | |
 EMPTY - EMPTY - ORANGE - BLUE - YELLOW
 EMPTY - EMPTY - WHITE - BLACK - GREEN
+```
 
 Where:
 - black -> GND
