@@ -10,10 +10,13 @@
   <body>
     <div id="gaugeChart" class="epoch gauge-small"></div>
     <script>
-      $('#gaugeChart').epoch({
+      var gauge = $('#gaugeChart').epoch({
         type: 'time.gauge',
         value: 0.5
       });
+
+      setInterval(function(){ gauge.push(Math.random()); }, 500);
+
     </script>
   </body>
 </html>
