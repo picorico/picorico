@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PicoRico</title>
+    <script src="jquery.min.js"></script>
+    <script src="d3.min.js"></script>
+    <script src="epoch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="epoch.min.css">
+  </head>
+  <body>
+    <div id="gaugeChart" class="epoch gauge-small"></div>
+    <script>
+      $('#gaugeChart').epoch({
+        type: 'time.gauge',
+        value: 0.5
+      });
+    </script>
+  </body>
+</html>
