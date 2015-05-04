@@ -24,3 +24,8 @@ Modern downhill bikes have a lot of adjustability but their performance is hard 
    * frequent vibrations
    * large sudden impacts
    
+
+# News/Links
+* [Team picrico wins first runner up Techcruch Disrupt Hackathon and frist place Hackaday prize](http://techcrunch.com/2015/05/03/disrupt-ny-2015-hackathon-winners)
+* [ChallengePost site for hackathon](http://challengepost.com/software/picorico-fylou)
+
